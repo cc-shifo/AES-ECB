@@ -1,0 +1,13 @@
+error while loading shared libraries: libaesecb.so: cannot open shared object file: No
+
+解决步骤：
+1. ldd test.app
+	发现确实没有找到库
+2.添加动态库
+方法一、修改系统动态库配置文件，将当前libaesecb.so路径添加进去
+	# cat /etc/ld.so.conf
+	include ld.so.conf.d/*.conf
+	# echo "/usr/local/lib" >> /etc/ld.so.conf
+	# ldconfig
+方法二、临时将libaesecb.so路径添加进LD_LIBRARY_PATH
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:libaesecb.so路径
